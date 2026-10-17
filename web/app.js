@@ -1,18 +1,25 @@
 // L'interface web : le plateau sur l'illustration, le semis animé, et le tour de l'ordinateur.
 import { Board, NIVEAUX, NORD, Partie, SUD, choisirCoup, nomTrou } from "./ngai.js";
 
-// La position des trous et des greniers sur l'illustration, en pourcentage de sa largeur (x, d)
-// et de sa hauteur (y). d est le diamètre.
-const TROU_D = 14.4;
-const COLONNES = [15.3, 32.6, 50.1, 67.6, 84.9];
+// La position des trous et des greniers sur la photo, en pourcentage de sa largeur (x, l) et de sa
+// hauteur (y, h). Les trous sont des ovales (la photo est prise en perspective) : l et h sont leur
+// largeur et leur hauteur.
 const GEOMETRIE = {
   trous: [
-    ...COLONNES.map((x) => ({ x, y: 60.9 })), // A à E, en bas, de gauche à droite
-    ...[...COLONNES].reverse().map((x) => ({ x, y: 39.2 })), // 5 à 1, en haut, de droite à gauche
+    { x: 10.8, y: 50.6, l: 18.0, h: 20.1 }, // A
+    { x: 31.3, y: 50.6, l: 16.5, h: 19.4 }, // B
+    { x: 50.5, y: 50.6, l: 17.0, h: 20.1 }, // C
+    { x: 70.0, y: 50.2, l: 17.5, h: 19.4 }, // D
+    { x: 90.8, y: 50.9, l: 17.5, h: 19.4 }, // E
+    { x: 87.0, y: 30.9, l: 16.0, h: 15.7 }, // 5
+    { x: 68.8, y: 30.9, l: 15.3, h: 15.1 }, // 4
+    { x: 50.8, y: 30.5, l: 14.8, h: 15.4 }, // 3
+    { x: 33.0, y: 30.8, l: 14.5, h: 15.4 }, // 2
+    { x: 15.5, y: 31.1, l: 15.0, h: 14.7 }, // 1
   ],
   greniers: [
-    { x: 50.3, y: 86.3, d: 19 }, // Sud, en bas
-    { x: 50.4, y: 13.4, d: 19 }, // Nord, en haut
+    { x: 50.8, y: 76.7, l: 22.5, h: 24.8 }, // Sud, en bas
+    { x: 50.0, y: 15.1, l: 15.5, h: 16.1 }, // Nord, en haut
   ],
 };
 
@@ -39,17 +46,18 @@ function nomJoueur(joueur) {
 
 // --- Construction du plateau ---------------------------------------------------------------
 
-function placer(element, { x, y, d }) {
+function placer(element, { x, y, l, h }) {
   element.style.left = `${x}%`;
   element.style.top = `${y}%`;
-  element.style.width = `${d}%`;
+  element.style.width = `${l}%`;
+  element.style.height = `${h}%`;
 }
 
 const boutons = GEOMETRIE.trous.map((position, trou) => {
   const bouton = document.createElement("button");
   bouton.className = trou < 5 ? "trou sud" : "trou nord";
   bouton.dataset.trou = trou;
-  placer(bouton, { ...position, d: TROU_D });
+  placer(bouton, position);
   bouton.innerHTML = `<span class="pions"></span><span class="badge"><span class="nom">${nomTrou(trou)}</span><span class="compte"></span></span>`;
   bouton.addEventListener("click", () => jouerHumain(trou));
   plateau.append(bouton);
@@ -58,7 +66,7 @@ const boutons = GEOMETRIE.trous.map((position, trou) => {
 
 const greniers = GEOMETRIE.greniers.map((position, joueur) => {
   const grenier = document.createElement("div");
-  grenier.className = "grenier";
+  grenier.className = joueur === SUD ? "grenier sud" : "grenier nord";
   placer(grenier, position);
   grenier.innerHTML = `<span class="pions"></span><span class="etiquette"><span class="qui"></span><strong class="total"></strong></span>`;
   grenier.querySelector(".qui").dataset.joueur = joueur;
