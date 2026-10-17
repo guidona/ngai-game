@@ -116,13 +116,11 @@ function jouablesPourHumain() {
   return partie.board.coupsPossibles();
 }
 
-function direTour() {
-  if (partie.terminee()) return;
-  const qui = nomJoueur(partie.joueur);
-  if (niveau && partie.joueur === NORD) return;
-  const ligne = niveau ? "À vous de jouer" : `À ${qui} de jouer`;
-  const ou = partie.joueur === SUD ? "rangée du bas" : "rangée du haut";
-  message.textContent = `${ligne} : choisissez un trou de la ${ou} avec au moins 2 pions.`;
+// Ajoute « à qui de jouer » aux lignes qui décrivent le dernier coup.
+function direTour(lignes = []) {
+  if (partie.terminee() || (niveau && partie.joueur === NORD)) return;
+  const tour = niveau ? "À vous de jouer." : `Au ${nomJoueur(partie.joueur).toLowerCase()} de jouer.`;
+  message.textContent = [...lignes, tour].join(" ");
 }
 
 // --- Un coup, animé ------------------------------------------------------------------------
@@ -170,7 +168,7 @@ async function jouerCoup(trou) {
 
   if (partie.terminee()) return finir();
   if (niveau && partie.joueur === NORD) return tourOrdinateur();
-  if (!prises.length && !passe) direTour();
+  direTour(lignes);
 }
 
 async function tourOrdinateur() {
