@@ -1,7 +1,8 @@
-# Les règles du Ngay
+# Les règles du Ngai
 
-Ce document rassemble ce que l'on sait des règles du Ngay, jeu traditionnel tupuri. Il reprend le
+Ce document rassemble ce que l'on sait des règles du Ngai, jeu traditionnel tupuri. Il reprend le
 rapport de 2018 ([`Docs/ngay-ai.pdf`](Docs/ngay-ai.pdf)) et décrit ce que fait le programme actuel.
+Le rapport écrit le nom du jeu « Ngay ».
 
 Les règles ne sont pas encore complètes. Les points manquants sont listés à la fin, dans
 [Questions ouvertes](#questions-ouvertes) : si vous connaissez le jeu, c'est là que votre aide compte
@@ -15,13 +16,13 @@ le plus.
 - **50 pions**.
 - Les pions circulent dans le **sens trigonométrique** (inverse des aiguilles d'une montre).
 
-![Le tableau de jeu du Ngay](Docs/images/ngay-platform.png)
+![Le tableau de jeu du Ngai](Docs/images/ngay-platform.png)
 
-Le Ngay ressemble à l'awalé d'Afrique de l'Ouest, mais il est plus élaboré.
+Le Ngai ressemble à l'awalé d'Afrique de l'Ouest, mais il est plus élaboré.
 
 ### Les joueurs et les trous
 
-- Le Ngay se joue à plusieurs : **2 joueurs** idéalement, **10 au maximum**.
+- Le Ngai se joue à plusieurs : **2 joueurs** idéalement, **10 au maximum**.
 - Au début, on **distribue les trous** entre les joueurs. Pendant une séance, les propriétaires ne
   changent pas de trous.
 - À la fin d'une séance, on constate à qui appartient chaque trou, et on refait la répartition selon
@@ -81,7 +82,7 @@ marqués *(choix du programme)* : ils sont à confirmer.
 ## Questions ouvertes
 
 Le rapport s'arrête avant d'expliquer ces points. Pour chacun, la réponse de quelqu'un qui joue au
-Ngay permettra de compléter les règles puis le programme.
+Ngai permettra de compléter les règles puis le programme.
 
 1. **La répartition de départ.** Comment les 50 pions sont-ils placés au début ? Combien par trou ?
 2. **Le premier coup.** Qui commence, et comment le décide-t-on ?

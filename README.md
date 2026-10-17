@@ -1,11 +1,14 @@
-# Ngay
+# Ngai
 
-Le Ngay est un jeu traditionnel tupuri, un jeu de semis proche de l'awalé : des pions circulent dans
+Le Ngai est un jeu traditionnel tupuri, un jeu de semis proche de l'awalé : des pions circulent dans
 deux rangées de cinq trous, et l'on gagne en prenant ceux de ses adversaires.
 
-Ce projet a deux buts : **écrire les règles complètes du Ngay** et **en faire un programme jouable**.
+Ce projet a deux buts : **écrire les règles complètes du Ngai** et **en faire un programme jouable**.
 Il a commencé en 2018 dans le cadre d'un cours d'intelligence artificielle à l'École Nationale
 Supérieure Polytechnique de Maroua.
+
+Le rapport, le code et les fichiers de 2018 écrivent le nom du jeu « Ngay » ; ils sont gardés tels
+quels.
 
 - **Les règles :** [`REGLES.md`](REGLES.md), avec ce que l'on sait, ce que fait le programme, et les
   questions encore ouvertes.
@@ -47,7 +50,7 @@ joueur : les pions qu'il a pris.
 
 ## Contribuer
 
-Vous connaissez le Ngay ? L'aide la plus utile est de **répondre aux
+Vous connaissez le Ngai ? L'aide la plus utile est de **répondre aux
 [questions ouvertes](REGLES.md#questions-ouvertes)** sur les règles : ouvrez une *issue* sur GitHub,
 ou écrivez-moi. Pas besoin de savoir programmer.
 
@@ -60,6 +63,6 @@ Guy Mberebe Guidona et Oumar Djime Ratou.
 
 ---
 
-*In English:* Ngay is a traditional Tupuri sowing game related to awalé. This project documents its
+*In English:* Ngai is a traditional Tupuri sowing game related to awalé. This project documents its
 rules and implements them in Python; it is written in French because the people who know the game
 and help with it are francophone.
