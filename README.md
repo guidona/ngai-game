@@ -1,6 +1,6 @@
 # Ngai
 
-![Les dix trous du Ngai et les deux greniers, creusés dans le sable](docs/images/plateau-web.jpg)
+![Les dix trous du Ngai et les deux greniers, creusés dans le sable](web/plateau.jpg)
 
 Le Ngai est un jeu traditionnel tupuri, un jeu de semis proche de l'awalé : des pions circulent dans
 deux rangées de cinq trous, et l'on gagne en prenant ceux de ses adversaires.
@@ -16,7 +16,11 @@ Supérieure Polytechnique de Maroua.
 
 ## Jouer
 
-Il faut Python 3.9 ou plus récent, sans rien d'autre à installer. Depuis le dossier du projet :
+**En ligne, sans rien installer : [guidona.github.io/ngai-game](https://guidona.github.io/ngai-game/)**,
+sur ordinateur ou sur téléphone.
+
+Dans le terminal, il faut Python 3.9 ou plus récent, sans rien d'autre à installer. Depuis le
+dossier du projet :
 
 ```sh
 python3 ngai.py
@@ -67,6 +71,7 @@ ngai/
   plateau.py         le tableau et les règles
   ordinateur.py      l'adversaire ordinateur (minimax avec élagage alpha-bêta)
   terminal.py        l'affichage et la saisie
+web/                 la version web (les mêmes règles en JavaScript, dans ngai.js)
 tests/               les tests
 docs/
   regles.md          les règles
@@ -74,8 +79,13 @@ docs/
   2018/              le rapport, sa source LaTeX et le carnet perceptron de 2018
 ```
 
-Les tests se lancent avec `python3 -m unittest discover tests`, et tournent aussi sur GitHub à
-chaque envoi. Le jeu se lance aussi avec `python3 -m ngai`.
+Les tests se lancent avec `python3 -m unittest discover tests` et `node --test tests/web.test.mjs`
+(ce dernier vérifie que la version web applique exactement les mêmes règles que la version Python).
+Ils tournent aussi sur GitHub à chaque envoi. Une règle qui change se change donc à deux endroits :
+`ngai/plateau.py` et `web/ngai.js`.
+
+Pour essayer la version web en local : `python3 -m http.server -d web`, puis ouvrir
+<http://localhost:8000>. Le jeu dans le terminal se lance aussi avec `python3 -m ngai`.
 
 ## Auteurs
 
@@ -85,4 +95,4 @@ Guy Mberebe Guidona et Oumar Djime Ratou.
 
 *In English:* Ngai is a traditional Tupuri sowing game related to awalé. This project documents its
 rules and implements them in Python, with a computer opponent. It is written in French because the
-people who know the game and help with it are francophone. Run it with `python3 ngai.py`.
+people who know the game and help with it are francophone. Play it online at https://guidona.github.io/ngai-game/ or run `python3 ngai.py`.

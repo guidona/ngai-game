@@ -1,0 +1,204 @@
+:root {
+  --fond: #f1ebe0;
+  --texte: #2c241c;
+  --discret: #6e6253;
+  --ligne: #d9cdb9;
+  --surface: #fbf8f2;
+  --accent: #b5541c;
+  --accent-doux: rgba(181, 84, 28, 0.16);
+  --anneau: #f2a65a;
+  --serif: "Fraunces", Georgia, serif;
+  --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fond: #1a1612;
+    --texte: #efe7da;
+    --discret: #b3a796;
+    --ligne: #3a3129;
+    --surface: #241e18;
+    --accent: #f0a062;
+    --accent-doux: rgba(240, 160, 98, 0.18);
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--fond);
+  color: var(--texte);
+  font: 400 1rem/1.55 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-underline-offset: 0.2em; }
+
+.page {
+  max-width: 50rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 2.5rem;
+}
+
+/* En-tête et commandes */
+
+.entete { text-align: center; }
+.entete h1 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(2.25rem, 7vw, 3.25rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+}
+.entete p { margin: 0.25rem 0 0; color: var(--discret); }
+
+.commandes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 1.25rem 0;
+}
+.mode { display: grid; gap: 0.2rem; font-size: 0.8125rem; color: var(--discret); }
+
+select, .bouton {
+  font: inherit;
+  font-size: 0.9375rem;
+  color: var(--texte);
+  height: 2.5rem;
+  padding: 0 0.9rem;
+  border: 1px solid var(--ligne);
+  border-radius: 10px;
+  background: var(--surface);
+}
+.bouton {
+  border-color: transparent;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+@media (prefers-color-scheme: dark) { .bouton { color: #1a1612; } }
+select:focus-visible, .bouton:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Le plateau : l'illustration, avec les trous et les greniers posés dessus */
+
+.plateau {
+  position: relative;
+  width: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 12px 32px rgba(60, 40, 20, 0.18);
+  container-type: inline-size;
+}
+.plateau img { display: block; width: 100%; height: auto; }
+
+.trou, .grenier {
+  position: absolute;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+
+.trou {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  cursor: default;
+  -webkit-tap-highlight-color: transparent;
+}
+.trou.jouable { cursor: pointer; box-shadow: 0 0 0 3px var(--anneau); animation: invite 1.8s ease-in-out infinite; }
+.trou.jouable:hover { box-shadow: 0 0 0 4px #fff, 0 0 0 7px var(--anneau); animation: none; }
+.trou:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.trou.surbrillance { box-shadow: 0 0 0 4px #fff; background: rgba(255, 255, 255, 0.28); }
+
+@keyframes invite {
+  50% { box-shadow: 0 0 0 5px rgba(242, 166, 90, 0.55); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .trou.jouable { animation: none; }
+}
+
+.pions { position: absolute; inset: 0; pointer-events: none; }
+.pion {
+  position: absolute;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, hsl(calc(22deg + var(--teinte) * 1deg) 32% 46%), hsl(22deg 40% 13%) 72%);
+  box-shadow: 0 1px 1.5px rgba(0, 0, 0, 0.45);
+  transition: left 0.2s, top 0.2s, width 0.2s;
+}
+
+/* Le nom et le nombre de pions de chaque trou, côté extérieur du plateau */
+
+.badge {
+  position: absolute;
+  left: 50%;
+  display: flex;
+  align-items: baseline;
+  gap: 0.35em;
+  padding: 0.05em 0.55em;
+  border-radius: 999px;
+  background: rgba(251, 248, 242, 0.94);
+  color: #2c241c;
+  font-size: clamp(0.625rem, 2.1cqi, 0.875rem);
+  line-height: 1.5;
+  white-space: nowrap;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+}
+.nord .badge { top: 0; transform: translate(-50%, -70%); }
+.sud .badge { bottom: 0; transform: translate(-50%, 70%); }
+.nom { color: #8a7a66; font-weight: 600; }
+.compte { font-weight: 700; }
+
+/* Les greniers */
+
+.grenier { transition: box-shadow 0.2s; }
+.grenier.actif { box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.85); }
+.etiquette {
+  position: absolute;
+  top: 50%;
+  left: 108%;
+  transform: translateY(-50%);
+  display: grid;
+  white-space: nowrap;
+  padding: 0.25em 0.7em;
+  border-radius: 10px;
+  background: rgba(251, 248, 242, 0.92);
+  color: #2c241c;
+  font-size: clamp(0.6875rem, 2.3cqi, 0.9375rem);
+  line-height: 1.3;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+.etiquette .qui { color: #6e6253; font-size: 0.85em; }
+.etiquette .total { font-size: 1.35em; }
+
+/* Message et règles */
+
+.message {
+  min-height: 3.2em;
+  margin: 1rem 0 0;
+  text-align: center;
+  font-size: 1.0625rem;
+}
+
+.regles {
+  margin-top: 1.5rem;
+  padding: 0.25rem 1.1rem;
+  border: 1px solid var(--ligne);
+  border-radius: 12px;
+  background: var(--surface);
+}
+.regles summary { padding: 0.6rem 0; font-weight: 600; cursor: pointer; }
+.regles ul { margin: 0.25rem 0 0; padding-left: 1.2rem; }
+.regles li + li { margin-top: 0.5rem; }
+.regles p { color: var(--discret); font-size: 0.9375rem; }
+
+.pied { margin-top: 2rem; text-align: center; color: var(--discret); font-size: 0.875rem; }

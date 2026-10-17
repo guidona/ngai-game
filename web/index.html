@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ngai · jeu traditionnel tupuri</title>
+  <meta name="description" content="Jouez au Ngai, jeu de semis traditionnel tupuri, à deux ou contre l'ordinateur.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='28' fill='%23c9b89c'/><circle cx='26' cy='28' r='8' fill='%233a2a1e'/><circle cx='38' cy='30' r='8' fill='%233a2a1e'/><circle cx='31' cy='40' r='8' fill='%233a2a1e'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <header class="entete">
+      <h1>Ngai</h1>
+      <p>Jeu de semis traditionnel tupuri</p>
+    </header>
+
+    <div class="commandes">
+      <label class="mode">
+        <span>Adversaire</span>
+        <select id="mode">
+          <option value="facile">Ordinateur, facile</option>
+          <option value="moyen" selected>Ordinateur, moyen</option>
+          <option value="difficile">Ordinateur, difficile</option>
+          <option value="">Deux joueurs</option>
+        </select>
+      </label>
+      <button id="nouvelle" class="bouton">Nouvelle partie</button>
+    </div>
+
+    <section class="jeu" aria-label="Plateau de jeu">
+      <div class="plateau" id="plateau">
+        <img src="plateau.jpg" alt="" width="1200" height="941">
+      </div>
+      <p class="message" id="message" aria-live="polite"></p>
+    </section>
+
+    <details class="regles">
+      <summary>Les règles</summary>
+      <ul>
+        <li>Chaque joueur a une rangée de cinq trous : celle du bas pour le Sud, celle du haut pour
+          le Nord. Au départ, chaque trou contient 5 pions.</li>
+        <li>À son tour, on choisit un de ses trous qui contient au moins 2 pions. Ses pions sont
+          semés un par un dans les trous suivants, dans le sens inverse des aiguilles d'une montre,
+          y compris chez l'adversaire.</li>
+        <li>Si le dernier trou semé contient alors 2 ou 4 pions, on les prend (gain simple). On
+          prend aussi les trous suivants de la même rangée tant qu'ils contiennent 2 ou 4 pions
+          (gain cumulatif).</li>
+        <li>Un joueur qui ne peut pas jouer passe son tour. La séance finit quand plus personne ne
+          peut jouer : chacun prend les pions de sa rangée, et le plus gros grenier gagne.</li>
+      </ul>
+      <p>Certaines règles sont encore à confirmer avec des joueurs de Ngai.
+        <a href="https://github.com/guidona/ngai-game/blob/master/docs/regles.md">Les règles en détail et les questions ouvertes</a>.</p>
+    </details>
+
+    <footer class="pied">
+      <p>Par Guy Mberebe Guidona et Oumar Djime Ratou ·
+        <a href="https://github.com/guidona/ngai-game">Le code sur GitHub</a></p>
+    </footer>
+  </main>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

@@ -38,6 +38,16 @@ def minimax(board, profondeur, joueur, alpha, beta):
     return meilleur
 
 
+def valeurs_des_coups(board, profondeur):
+    """La valeur exacte de chaque coup possible, sans élagage à la racine (sert aux tests)."""
+    valeurs = {}
+    for trou in board.coups_possibles():
+        suite = board.copie()
+        suite.jouer(trou)
+        valeurs[trou] = minimax(suite, profondeur - 1, board.joueur, float("-inf"), float("inf"))
+    return valeurs
+
+
 def choisir_coup(board, profondeur, hasard=None):
     """Le meilleur coup pour le joueur qui a la main ; entre deux coups égaux, au hasard."""
     hasard = hasard or random.Random()
