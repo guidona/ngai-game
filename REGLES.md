@@ -52,52 +52,59 @@ les angles de la rangée opposée**.
 
 ## Ce que fait le programme
 
-Le programme ([`Code/`](Code/)) est une version **à deux joueurs dans le terminal**. Il applique les
-règles de prise du rapport, et fait en plus des choix que le rapport ne précise pas. Ces choix sont
-marqués *(choix du programme)* : ils sont à confirmer.
+Le programme ([`Code/`](Code/)) joue **une séance à deux joueurs**, à deux ou contre l'ordinateur.
+Il applique les règles du rapport. Là où le rapport ne dit rien, il fait un choix provisoire, marqué
+*(choix provisoire, question n)* : la question correspondante est dans la section suivante, et le
+choix changera dès que la réponse sera connue.
 
 - **Le tableau.** Le joueur 1 (Sud) a la rangée du bas, trous `A` à `E`. Le joueur 2 (Nord) a la
-  rangée du haut, trous `1` à `5`. Chaque joueur ne joue que depuis sa rangée. *(choix du
-  programme)*
-- **Le départ.** Le tableau commence avec une position d'essai de **8 pions**, pas les 50 du jeu
-  réel, parce que la répartition de départ n'est pas encore connue.
-- **Jouer un coup.** Le joueur choisit un de ses trous. Il faut que ce trou contienne **au moins
-  2 pions** *(choix du programme)*. Les pions sont semés un par un dans les trous suivants, dans le
-  sens trigonométrique, y compris chez l'adversaire. Un coup non valable redonne la main au même
-  joueur.
+  rangée du haut, trous `1` à `5`. Chaque joueur ne joue que depuis sa rangée. *(choix provisoire,
+  question 7)*
+- **Le départ.** Les 50 pions sont répartis à raison de **5 par trou**. *(choix provisoire,
+  question 1)* Le joueur 1 commence. *(choix provisoire, question 2)*
+- **Jouer un coup.** Le joueur choisit un de ses trous qui contient **au moins 2 pions**. *(choix
+  provisoire, question 3)* Les pions sont semés un par un dans les trous suivants, dans le sens
+  trigonométrique, y compris chez l'adversaire. Quand on fait le tour du tableau, on **saute le trou
+  de départ**. *(choix provisoire, question 4)*
 - **Les prises.** Si le dernier trou semé contient 2 ou 4 pions, le joueur les prend (gain simple).
-  La prise continue sur les trous **suivants, dans le sens du jeu**, tant qu'ils contiennent 2 ou 4
-  pions (gain cumulatif). Elle s'arrête au bout de la rangée où elle se trouve. Les pions pris vont
-  dans le grenier du joueur, affiché à côté du tableau.
+  La prise continue sur les **trous précédents**, tant qu'ils contiennent 2 ou 4 pions (gain
+  cumulatif). *(choix provisoire, question 5)* Elle **ne dépasse pas l'angle** : elle reste dans la
+  rangée du dernier trou semé, que ce soit celle de l'adversaire ou la sienne. *(choix provisoire,
+  question 6)* Les pions pris vont dans le grenier du joueur.
+- **Passer son tour.** Un joueur qui n'a aucun trou jouable passe son tour.
+- **La fin de la séance.** Elle finit quand aucun des deux joueurs ne peut jouer, ou quand la même
+  position revient (sinon les pions pourraient tourner sans fin). Chaque joueur prend alors les
+  pions restés dans sa rangée, et le plus gros grenier gagne. *(choix provisoire, question 8)*
+- **L'ordinateur.** Il cherche le meilleur coup en explorant les suites possibles (minimax avec
+  élagage alpha-bêta) : 1 coup à l'avance en facile, 4 en moyen, 10 en difficile.
+- **Pas encore programmé :** plus de deux joueurs, la propriété des trous (règle des 3 pions), la
+  suite des séances avec redistribution des trous, la victoire à 48 pions.
 
-  **Erreur connue :** si le dernier trou semé ne donne rien, le programme regarde quand même le trou
-  suivant et le prend s'il contient 2 ou 4 pions. Exemple : avec 2 pions en `A` et 2 en `D`, jouer
-  `A` sème en `B` et `C` (1 pion chacun), et le joueur prend les 2 pions de `D`, qui n'a pas été
-  semé.
-- **Passer son tour.** Si un joueur n'a aucun trou avec au moins 2 pions, la main passe à l'autre.
-- **La fin.** La partie s'arrête quand plus aucun trou ne contient au moins 2 pions.
-- **Pas encore programmé :** les 50 pions, plus de deux joueurs, la propriété des trous (règle des
-  3 pions), les séances et la redistribution des trous, la victoire à 48 pions.
+L'erreur du programme de 2018 (une prise possible dans un trou qui n'avait pas été semé) est
+corrigée.
 
 ## Questions ouvertes
 
 Le rapport s'arrête avant d'expliquer ces points. Pour chacun, la réponse de quelqu'un qui joue au
-Ngai permettra de compléter les règles puis le programme.
+Ngai permettra de compléter les règles puis le programme. Entre parenthèses, le choix provisoire du
+programme.
 
 1. **La répartition de départ.** Comment les 50 pions sont-ils placés au début ? Combien par trou ?
-2. **Le premier coup.** Qui commence, et comment le décide-t-on ?
+   *(5 par trou)*
+2. **Le premier coup.** Qui commence, et comment le décide-t-on ? *(le joueur 1)*
 3. **Les trous jouables.** Peut-on jouer un trou qui ne contient qu'un seul pion ? Peut-on jouer
-   un trou qui n'est pas à soi ?
+   un trou qui n'est pas à soi ? *(non et non)*
 4. **Le semis.** Quand un trou contient beaucoup de pions et que l'on fait le tour du tableau,
-   saute-t-on le trou de départ ?
+   saute-t-on le trou de départ ? *(oui, comme à l'awalé)*
 5. **Le sens des prises cumulatives.** Après le dernier trou semé, la prise continue-t-elle vers
-   les trous suivants (comme dans le programme) ou vers les trous précédents (comme à l'awalé) ?
+   les trous précédents ou vers les trous suivants ? *(les précédents, comme à l'awalé ; le
+   programme de 2018 allait vers les suivants)*
 6. **Les angles.** Que veut dire exactement « ne pas dépasser les angles de la rangée opposée » ?
-   Peut-on prendre dans sa propre rangée ?
+   Peut-on prendre dans sa propre rangée ? *(la prise reste dans une rangée ; oui)*
 7. **Les trous des joueurs.** Comment les trous sont-ils répartis au début d'une partie à 2, à 3, à
-   10 joueurs ? Comment s'applique la règle des 3 pions ?
+   10 joueurs ? Comment s'applique la règle des 3 pions ? *(à deux : une rangée chacun)*
 8. **La fin d'une séance.** Quand une séance se termine-t-elle ? Que deviennent les pions restés sur
-   le tableau ?
+   le tableau ? *(quand personne ne peut jouer ; chacun prend ceux de sa rangée)*
 9. **La redistribution.** Comment refait-on la répartition des trous selon les pions gagnés ?
 10. **Le nombre de joueurs.** Le rapport parle de 2 à 10 joueurs, mais aussi d'une version « pour
     cinq joueurs ». Quelle est la règle habituelle ?

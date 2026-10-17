@@ -17,35 +17,42 @@ quels.
 
 ## Où en est le projet
 
-Le programme est une version **à deux joueurs dans le terminal**. Il gère le semis et les prises
-(gain simple et gain cumulatif). Il commence avec une position d'essai de 8 pions, et ne gère pas
-encore les 50 pions, plus de deux joueurs, la propriété des trous ni les séances : ces règles ne
-sont pas encore entièrement connues. Le détail est dans [`REGLES.md`](REGLES.md).
+Le programme joue **une séance complète à deux joueurs**, dans le terminal : à deux, ou contre
+l'ordinateur (trois niveaux). Il gère les 50 pions, le semis, les prises (gain simple et gain
+cumulatif) et la fin de la séance.
 
-Le carnet [`Code/ngay-ai-engine.ipynb`](Code/ngay-ai-engine.ipynb) contient un début de moteur
-d'intelligence artificielle (un perceptron), qui n'est pas encore relié au jeu.
+Le rapport ne dit pas tout. Quand une règle manque, le programme fait un **choix provisoire**, noté
+dans [`REGLES.md`](REGLES.md) avec la question qui permettra de le confirmer. Pas encore programmé :
+plus de deux joueurs, la propriété des trous et la suite des séances.
 
 ## Jouer
 
-Il faut Python 3.
+Il faut Python 3.9 ou plus récent, sans rien d'autre à installer.
 
 ```sh
 cd Code
 python3 ngayMain.py
 ```
 
-Le joueur 1 joue avec les lettres `A` à `E` (rangée du bas), le joueur 2 avec les chiffres `1` à
-`5` (rangée du haut). Le nombre au-dessus et au-dessous du tableau est le grenier de chaque
-joueur : les pions qu'il a pris.
+Choisissez de jouer à deux ou contre l'ordinateur. Le joueur 1 (Sud) joue avec les lettres `A` à
+`E`, le joueur 2 (Nord) avec les chiffres `1` à `5`. Tapez `?` pour l'aide, `q` pour quitter.
 
 ```
-      1   2   3   4   5
-    +---+---+---+---+---+
-    | 1 | 3 | 0 | 0 | 2 |
-    +---+---+---+---+---+
-    | 0 | 1 | 0 | 1 | 0 |
-    +---+---+---+---+---+
-      A   B   C   D   E
+    Joueur 2 (Nord) : 0 pion
+
+      1    2    3    4    5
+    +----+----+----+----+----+
+    |  8 |  2 |  7 |  0 |  7 |
+    +----+----+----+----+----+
+    |  8 |  2 |  8 |  1 |  7 |
+    +----+----+----+----+----+
+      A    B    C    D    E
+
+    Joueur 1 (Sud) : 0 pion
+
+Joueur 2 (Nord) joue 4.
+
+Joueur 1 (Sud), quel trou jouez-vous ? (? aide, q quitter)
 ```
 
 ## Contribuer
@@ -54,8 +61,17 @@ Vous connaissez le Ngai ? L'aide la plus utile est de **répondre aux
 [questions ouvertes](REGLES.md#questions-ouvertes)** sur les règles : ouvrez une *issue* sur GitHub,
 ou écrivez-moi. Pas besoin de savoir programmer.
 
-Pour le code : [`Code/ngayBoard.py`](Code/ngayBoard.py) contient le tableau et les règles,
-[`Code/ngayMain.py`](Code/ngayMain.py) la boucle de jeu.
+Pour le code :
+
+- [`Code/ngayBoard.py`](Code/ngayBoard.py) : le tableau et les règles ;
+- [`Code/ordinateur.py`](Code/ordinateur.py) : l'adversaire ordinateur (minimax avec élagage
+  alpha-bêta) ;
+- [`Code/ngayMain.py`](Code/ngayMain.py) : le jeu dans le terminal ;
+- [`tests/`](tests/) : les tests, à lancer avec `python3 -m unittest discover tests`. Ils tournent
+  aussi sur GitHub à chaque envoi.
+
+Le carnet [`Code/ngay-ai-engine.ipynb`](Code/ngay-ai-engine.ipynb) est le début de 2018 d'un
+moteur à base de perceptron ; il n'est pas utilisé par le jeu.
 
 ## Auteurs
 
@@ -64,5 +80,5 @@ Guy Mberebe Guidona et Oumar Djime Ratou.
 ---
 
 *In English:* Ngai is a traditional Tupuri sowing game related to awalé. This project documents its
-rules and implements them in Python; it is written in French because the people who know the game
-and help with it are francophone.
+rules and implements them in Python, with a computer opponent. It is written in French because the
+people who know the game and help with it are francophone.
