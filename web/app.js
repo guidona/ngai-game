@@ -119,7 +119,7 @@ function jouablesPourHumain() {
 // Ajoute « à qui de jouer » aux lignes qui décrivent le dernier coup.
 function direTour(lignes = []) {
   if (partie.terminee() || (niveau && partie.joueur === NORD)) return;
-  const tour = niveau ? "À vous de jouer." : `Au ${nomJoueur(partie.joueur).toLowerCase()} de jouer.`;
+  const tour = niveau ? "À vous de jouer." : `Au j${nomJoueur(partie.joueur).slice(1)} de jouer.`;
   message.textContent = [...lignes, tour].join(" ");
 }
 
