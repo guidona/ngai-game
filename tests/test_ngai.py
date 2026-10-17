@@ -6,11 +6,11 @@ import subprocess
 import sys
 import unittest
 
-CODE = os.path.join(os.path.dirname(__file__), "..", "Code")
-sys.path.insert(0, CODE)
+RACINE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+sys.path.insert(0, RACINE)
 
-from ngayBoard import NORD, SUD, Board, Partie, trou_depuis_nom  # noqa: E402
-from ordinateur import choisir_coup  # noqa: E402
+from ngai.ordinateur import choisir_coup  # noqa: E402
+from ngai.plateau import NORD, SUD, Board, Partie, trou_depuis_nom  # noqa: E402
 
 A, B, C, D, E = range(5)
 N5, N4, N3, N2, N1 = range(5, 10)
@@ -60,8 +60,8 @@ class TestCoups(unittest.TestCase):
         # 12 pions : un tour complet sans A, puis B, C et D reçoivent un deuxième pion.
         board = Board([12, 0, 0, 0, 0, 0, 0, 0, 0, 1])
         prises = board.jouer(A)
-        self.assertEqual(prises, [(D, 2), (C, 2), (B, 2)])
-        self.assertEqual(board.cases, [0, 0, 0, 0, 1, 1, 1, 1, 1, 2])
+        self.assertEqual(prises, [(D, 2)])
+        self.assertEqual(board.cases, [0, 2, 2, 0, 1, 1, 1, 1, 1, 2])
 
     def test_la_main_passe(self):
         board = Board([3, 0, 0, 0, 0, 3, 0, 0, 0, 0])
@@ -86,30 +86,27 @@ class TestPrises(unittest.TestCase):
         self.assertEqual(board.jouer(A), [])
         self.assertEqual(board.cases[C], 3)
 
-    def test_gain_cumulatif_vers_les_trous_precedents(self):
-        # D sème E, 5 et 4 ; 4 puis 5 ont 2 pions : les deux sont pris.
-        board = Board([0, 0, 0, 3, 0, 1, 1, 1, 1, 1])
-        self.assertEqual(board.jouer(D), [(N4, 2), (N5, 2)])
-        self.assertEqual(board.cases, [0, 0, 0, 0, 1, 0, 0, 1, 1, 1])
-        self.assertEqual(board.grenier, [4, 0])
-
-    def test_gain_cumulatif_sur_trois_trous(self):
-        board = Board([0, 0, 0, 0, 3, 1, 3, 1, 0, 0])
-        self.assertEqual(board.jouer(E), [(N3, 2), (N4, 4), (N5, 2)])
+    def test_gain_cumulatif_vers_les_trous_suivants(self):
+        # D sème E, 5 et 4. 4 a 2 pions : pris, puis 3 (2 pions) et 2 (4 pions). 5, derrière le
+        # dernier trou semé, n'est pas pris.
+        board = Board([0, 0, 0, 3, 0, 1, 1, 2, 4, 0])
+        self.assertEqual(board.jouer(D), [(N4, 2), (N3, 2), (N2, 4)])
+        self.assertEqual(board.cases, [0, 0, 0, 0, 1, 2, 0, 0, 0, 0])
         self.assertEqual(board.grenier, [8, 0])
 
     def test_la_prise_s_arrete_au_premier_trou_qui_ne_convient_pas(self):
-        board = Board([0, 0, 0, 0, 3, 1, 2, 1, 0, 0])
-        self.assertEqual(board.jouer(E), [(N3, 2)])
-        self.assertEqual(board.cases[N4], 3)
-        self.assertEqual(board.cases[N5], 2)
+        # 4 est pris ; 3 a 3 pions, donc la prise s'arrête, et 2 n'est pas pris.
+        board = Board([0, 0, 0, 3, 0, 1, 1, 3, 2, 0])
+        self.assertEqual(board.jouer(D), [(N4, 2)])
+        self.assertEqual(board.cases[N3], 3)
+        self.assertEqual(board.cases[N2], 2)
 
     def test_la_prise_ne_depasse_pas_l_angle(self):
-        # D sème E et 5. 5 a 2 pions et est pris ; E en a 2 aussi, mais il est de l'autre côté
-        # de l'angle.
-        board = Board([0, 0, 0, 2, 1, 1, 0, 0, 0, 0])
-        self.assertEqual(board.jouer(D), [(N5, 2)])
-        self.assertEqual(board.cases[E], 2)
+        # C sème D et E. E a 2 pions et est pris (dans sa propre rangée) ; 5 en a 2 aussi, mais
+        # il est de l'autre côté de l'angle.
+        board = Board([0, 0, 2, 0, 1, 2, 0, 0, 0, 0])
+        self.assertEqual(board.jouer(C), [(E, 2)])
+        self.assertEqual(board.cases[N5], 2)
 
     def test_pas_de_prise_sur_un_trou_non_seme(self):
         # L'erreur de 2018 : D était pris alors qu'il n'avait pas été semé.
@@ -170,7 +167,7 @@ class TestOrdinateur(unittest.TestCase):
 class TestTerminal(unittest.TestCase):
     def jouer(self, saisie):
         return subprocess.run(
-            [sys.executable, "ngayMain.py"], input=saisie, cwd=CODE,
+            [sys.executable, "ngai.py"], input=saisie, cwd=RACINE,
             capture_output=True, text=True, timeout=60,
         ).stdout
 

@@ -1,7 +1,7 @@
 """Le plateau et les règles du Ngai, pour deux joueurs.
 
 Les règles que le rapport de 2018 ne précise pas sont des choix provisoires du programme ; ils
-sont décrits dans REGLES.md (section « Ce que fait le programme »).
+sont décrits dans docs/regles.md (section « Ce que fait le programme »).
 
 Les trous sont numérotés de 0 à 9 dans le sens trigonométrique : 0 à 4 forment la rangée du Sud
 (A à E, de gauche à droite), 5 à 9 la rangée du Nord (5 à 1, de droite à gauche).
@@ -68,14 +68,14 @@ class Board:
             pions -= 1
 
         # Les prises : le dernier trou semé s'il contient 2 ou 4 pions, puis les trous
-        # précédents tant qu'ils remplissent la même condition, sans sortir de la rangée.
+        # suivants tant qu'ils remplissent la même condition, sans dépasser l'angle de la rangée.
         prises = []
         rangee_finale = position // 5
-        while position >= 0 and position // 5 == rangee_finale and self.cases[position] in PRISES:
+        while position // 5 == rangee_finale and self.cases[position] in PRISES:
             prises.append((position, self.cases[position]))
             self.grenier[self.joueur] += self.cases[position]
             self.cases[position] = 0
-            position -= 1
+            position += 1
 
         # La main passe à l'adversaire, sauf s'il ne peut pas jouer.
         adversaire = 1 - self.joueur

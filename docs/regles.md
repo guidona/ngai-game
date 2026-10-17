@@ -1,7 +1,7 @@
 # Les règles du Ngai
 
 Ce document rassemble ce que l'on sait des règles du Ngai, jeu traditionnel tupuri. Il reprend le
-rapport de 2018 ([`Docs/ngay-ai.pdf`](Docs/ngay-ai.pdf)) et décrit ce que fait le programme actuel.
+rapport de 2018 ([`2018/rapport.pdf`](2018/rapport.pdf)) et décrit ce que fait le programme actuel.
 Le rapport écrit le nom du jeu « Ngay ».
 
 Les règles ne sont pas encore complètes. Les points manquants sont listés à la fin, dans
@@ -16,7 +16,7 @@ le plus.
 - **50 pions**.
 - Les pions circulent dans le **sens trigonométrique** (inverse des aiguilles d'une montre).
 
-![Le tableau de jeu du Ngai](Docs/images/ngay-platform.png)
+![Le tableau de jeu du Ngai : deux rangées de cinq trous de 5 pions, et un grenier de chaque côté](2018/images/ngay-platform.png)
 
 Le Ngai ressemble à l'awalé d'Afrique de l'Ouest, mais il est plus élaboré.
 
@@ -52,7 +52,7 @@ les angles de la rangée opposée**.
 
 ## Ce que fait le programme
 
-Le programme ([`Code/`](Code/)) joue **une séance à deux joueurs**, à deux ou contre l'ordinateur.
+Le programme ([`ngai/`](../ngai/)) joue **une séance à deux joueurs**, à deux ou contre l'ordinateur.
 Il applique les règles du rapport. Là où le rapport ne dit rien, il fait un choix provisoire, marqué
 *(choix provisoire, question n)* : la question correspondante est dans la section suivante, et le
 choix changera dès que la réponse sera connue.
@@ -60,15 +60,15 @@ choix changera dès que la réponse sera connue.
 - **Le tableau.** Le joueur 1 (Sud) a la rangée du bas, trous `A` à `E`. Le joueur 2 (Nord) a la
   rangée du haut, trous `1` à `5`. Chaque joueur ne joue que depuis sa rangée. *(choix provisoire,
   question 7)*
-- **Le départ.** Les 50 pions sont répartis à raison de **5 par trou**. *(choix provisoire,
-  question 1)* Le joueur 1 commence. *(choix provisoire, question 2)*
+- **Le départ.** Les 50 pions sont répartis à raison de **5 par trou**, comme sur le schéma du
+  rapport. *(à confirmer, question 1)* Le joueur 1 commence. *(choix provisoire, question 2)*
 - **Jouer un coup.** Le joueur choisit un de ses trous qui contient **au moins 2 pions**. *(choix
   provisoire, question 3)* Les pions sont semés un par un dans les trous suivants, dans le sens
   trigonométrique, y compris chez l'adversaire. Quand on fait le tour du tableau, on **saute le trou
   de départ**. *(choix provisoire, question 4)*
 - **Les prises.** Si le dernier trou semé contient 2 ou 4 pions, le joueur les prend (gain simple).
-  La prise continue sur les **trous précédents**, tant qu'ils contiennent 2 ou 4 pions (gain
-  cumulatif). *(choix provisoire, question 5)* Elle **ne dépasse pas l'angle** : elle reste dans la
+  La prise continue sur les **trous suivants**, dans le sens du jeu, tant qu'ils contiennent 2 ou
+  4 pions (gain cumulatif). Elle **ne dépasse pas l'angle** : elle reste dans la
   rangée du dernier trou semé, que ce soit celle de l'adversaire ou la sienne. *(choix provisoire,
   question 6)* Les pions pris vont dans le grenier du joueur.
 - **Passer son tour.** Un joueur qui n'a aucun trou jouable passe son tour.
@@ -89,16 +89,15 @@ Le rapport s'arrête avant d'expliquer ces points. Pour chacun, la réponse de q
 Ngai permettra de compléter les règles puis le programme. Entre parenthèses, le choix provisoire du
 programme.
 
-1. **La répartition de départ.** Comment les 50 pions sont-ils placés au début ? Combien par trou ?
-   *(5 par trou)*
+1. **La répartition de départ.** Les 50 pions sont-ils toujours placés à 5 par trou au début ?
+   *(oui : c'est ce que montre le schéma du rapport)*
 2. **Le premier coup.** Qui commence, et comment le décide-t-on ? *(le joueur 1)*
 3. **Les trous jouables.** Peut-on jouer un trou qui ne contient qu'un seul pion ? Peut-on jouer
    un trou qui n'est pas à soi ? *(non et non)*
 4. **Le semis.** Quand un trou contient beaucoup de pions et que l'on fait le tour du tableau,
    saute-t-on le trou de départ ? *(oui, comme à l'awalé)*
-5. **Le sens des prises cumulatives.** Après le dernier trou semé, la prise continue-t-elle vers
-   les trous précédents ou vers les trous suivants ? *(les précédents, comme à l'awalé ; le
-   programme de 2018 allait vers les suivants)*
+5. **Le sens des prises cumulatives.** *Réglé :* après le dernier trou semé, la prise continue vers
+   les trous suivants.
 6. **Les angles.** Que veut dire exactement « ne pas dépasser les angles de la rangée opposée » ?
    Peut-on prendre dans sa propre rangée ? *(la prise reste dans une rangée ; oui)*
 7. **Les trous des joueurs.** Comment les trous sont-ils répartis au début d'une partie à 2, à 3, à

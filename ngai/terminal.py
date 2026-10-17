@@ -1,18 +1,17 @@
-#!/usr/bin/env python3
 """Jouer au Ngai dans le terminal, à deux ou contre l'ordinateur."""
 
 import sys
 
-from ngayBoard import NOMS_JOUEURS, NORD, SUD, Partie, nom_trou, rangee, trou_depuis_nom
-from ordinateur import NIVEAUX, choisir_coup
+from .ordinateur import NIVEAUX, choisir_coup
+from .plateau import NOMS_JOUEURS, NORD, SUD, Partie, nom_trou, rangee, trou_depuis_nom
 
 AIDE = """
-Règles en bref (le détail est dans REGLES.md) :
+Règles en bref (le détail est dans docs/regles.md) :
   - Chaque joueur a une rangée de 5 trous : A à E pour le Sud, 1 à 5 pour le Nord.
   - On joue un de ses trous qui contient au moins 2 pions. Les pions sont semés un par un dans
     les trous suivants, dans le sens inverse des aiguilles d'une montre.
   - Si le dernier trou semé contient 2 ou 4 pions, on les prend. On prend aussi les trous
-    précédents de la même rangée tant qu'ils contiennent 2 ou 4 pions.
+    suivants de la même rangée tant qu'ils contiennent 2 ou 4 pions.
   - Un joueur qui ne peut pas jouer passe son tour. La séance finit quand personne ne peut
     jouer ; chacun prend alors les pions de sa rangée. Le plus gros grenier gagne.
 """
@@ -139,6 +138,3 @@ def main():
         print()
         print("Au revoir.")
 
-
-if __name__ == "__main__":
-    main()
