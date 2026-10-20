@@ -56,12 +56,12 @@ class TestCoups(unittest.TestCase):
         self.assertEqual(board.jouer(D), [])
         self.assertEqual(board.cases, [0, 0, 0, 0, 1, 1, 1, 0, 0, 3])
 
-    def test_le_trou_de_depart_est_saute(self):
-        # 12 pions : un tour complet sans A, puis B, C et D reçoivent un deuxième pion.
+    def test_le_trou_de_depart_est_seme(self):
+        # 12 pions : un tour complet, A compris, puis B et C reçoivent un deuxième pion.
         board = Board([12, 0, 0, 0, 0, 0, 0, 0, 0, 1])
         prises = board.jouer(A)
-        self.assertEqual(prises, [(D, 2)])
-        self.assertEqual(board.cases, [0, 2, 2, 0, 1, 1, 1, 1, 1, 2])
+        self.assertEqual(prises, [(C, 2)])
+        self.assertEqual(board.cases, [1, 2, 0, 1, 1, 1, 1, 1, 1, 2])
 
     def test_la_main_passe(self):
         board = Board([3, 0, 0, 0, 0, 3, 0, 0, 0, 0])

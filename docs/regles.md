@@ -64,8 +64,8 @@ choix changera dès que la réponse sera connue.
   rapport. *(à confirmer, question 1)* Le joueur 1 commence. *(choix provisoire, question 2)*
 - **Jouer un coup.** Le joueur choisit un de ses trous qui contient **au moins 2 pions**. *(choix
   provisoire, question 3)* Les pions sont semés un par un dans les trous suivants, dans le sens
-  trigonométrique, y compris chez l'adversaire. Quand on fait le tour du tableau, on **saute le trou
-  de départ**. *(choix provisoire, question 4)*
+  trigonométrique, y compris chez l'adversaire. Quand on fait le tour du tableau, le **trou de
+  départ reçoit aussi un pion** : on ne le saute pas, contrairement à l'awalé.
 - **Les prises.** Si le dernier trou semé contient 2 ou 4 pions, le joueur les prend (gain simple).
   La prise continue sur les **trous suivants**, dans le sens du jeu, tant qu'ils contiennent 2 ou
   4 pions (gain cumulatif). Elle **ne dépasse pas l'angle** : elle reste dans la
@@ -94,8 +94,8 @@ programme.
 2. **Le premier coup.** Qui commence, et comment le décide-t-on ? *(le joueur 1)*
 3. **Les trous jouables.** Peut-on jouer un trou qui ne contient qu'un seul pion ? Peut-on jouer
    un trou qui n'est pas à soi ? *(non et non)*
-4. **Le semis.** Quand un trou contient beaucoup de pions et que l'on fait le tour du tableau,
-   saute-t-on le trou de départ ? *(oui, comme à l'awalé)*
+4. **Le semis.** *Réglé :* quand on fait le tour du tableau, on ne saute pas le trou de départ ;
+   il reçoit un pion comme les autres.
 5. **Le sens des prises cumulatives.** *Réglé :* après le dernier trou semé, la prise continue vers
    les trous suivants.
 6. **Les angles.** Que veut dire exactement « ne pas dépasser les angles de la rangée opposée » ?

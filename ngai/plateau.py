@@ -57,13 +57,12 @@ class Board:
         if trou not in self.coups_possibles():
             raise ValueError("coup non permis : " + nom_trou(trou))
 
-        # Le semis : un pion par trou, dans le sens trigonométrique, en sautant le trou de départ.
+        # Le semis : un pion par trou, dans le sens trigonométrique. Quand on fait le tour du
+        # tableau, le trou de départ reçoit aussi son pion.
         pions, self.cases[trou] = self.cases[trou], 0
         position = trou
         while pions:
             position = (position + 1) % TROUS
-            if position == trou:
-                continue
             self.cases[position] += 1
             pions -= 1
 

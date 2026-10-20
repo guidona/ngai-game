@@ -47,14 +47,14 @@ export class Board {
       throw new Error("coup non permis : " + nomTrou(trou));
     }
 
-    // Le semis : un pion par trou, dans le sens trigonométrique, en sautant le trou de départ.
+    // Le semis : un pion par trou, dans le sens trigonométrique. Quand on fait le tour du
+    // tableau, le trou de départ reçoit aussi son pion.
     let pions = this.cases[trou];
     this.cases[trou] = 0;
     let position = trou;
     const semis = [];
     while (pions) {
       position = (position + 1) % TROUS;
-      if (position === trou) continue;
       this.cases[position] += 1;
       semis.push(position);
       pions -= 1;
